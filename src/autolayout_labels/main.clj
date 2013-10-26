@@ -7,13 +7,13 @@
 (def MSV '("Bob" "Fred" "Sue" "George" "Henry" "Horatio"
            "Sally" "Sarah" "Rosie" "Chip" "Daisy"))
 
-(def ADDR_REGEX_STR "0x[0-9a-f]{7,8}")
+(def ADDR_REGEX_STR "0x[0-9a-f]{7,}")
 
 (defn strip-layout-addresses
   "Strip out NSLayoutConstraint addresses since we don't want to name them"
   [string]
   (s/replace string
-             (re-pattern (format "NSLayoutConstraint:%s" ADDR_REGEX_STR))
+             (re-pattern (format "NS(AutoresizingMask)?LayoutConstraint:%s" ADDR_REGEX_STR))
              ""))
 
 (defn build-map-from-tokens
