@@ -50,15 +50,16 @@
   (-> (build-replacement-map MSV string)
       (apply-replacement-map string)))
 
-(defn give-names-to-address-lines
-  "Take a list of lines and friendlify each line, printing it out"
-  [lines]
-  (let [line (first lines)]
-    (if line
-      (do
-        (println (give-names-to-addresses line))
-        (recur (rest lines))))))
+(defn interact
+  "Like Haskell's"
+  [f]
+  (let [lines (line-seq (io/reader *in*))]
+    (loop [line (first lines) remaining (rest lines)]
+      (if line
+        (do
+          (println (f line))
+          (recur (first remaining) (rest remaining)))))))
 
 (defn -main
   [& args]
-  (give-names-to-address-lines (line-seq (io/reader *in*))))
+  (interact give-names-to-addresses))
