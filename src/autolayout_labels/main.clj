@@ -54,7 +54,7 @@
   "Like Haskell's"
   [f]
   (let [lines (line-seq (io/reader *in*))]
-    (doall
+    (dorun
       (map (comp println f)
            lines))))
 
