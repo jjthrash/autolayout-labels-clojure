@@ -39,10 +39,9 @@
 (defn apply-replacement-map
   "Use a map of address -> friendly name to replace all the addresses in the given string"
   [replacement-map string]
-  (reduce (fn [t [k v]]
-            (s/replace t k v))
-          string
-          replacement-map))
+  (reduce-kv s/replace
+             string
+             replacement-map))
 
 (defn give-names-to-addresses
   "Give addresses like 0x1234abcd and 0x1234abc friendly names to help with debugging"
