@@ -4,8 +4,8 @@
             [clojure.java.io :as io])
   (:gen-class))
 
-(def MSV '("Bob" "Fred" "Sue" "George" "Henry" "Horatio"
-           "Sally" "Sarah" "Rosie" "Chip" "Daisy"))
+(def MSV ["Bob" "Fred" "Sue" "George" "Henry" "Horatio"
+           "Sally" "Sarah" "Rosie" "Chip" "Daisy"])
 
 (def ADDR_REGEX_STR "0x[0-9a-f]{7,}")
 
@@ -54,11 +54,9 @@
   "Like Haskell's"
   [f]
   (let [lines (line-seq (io/reader *in*))]
-    (loop [line (first lines) remaining (rest lines)]
-      (if line
-        (do
-          (println (f line))
-          (recur (first remaining) (rest remaining)))))))
+    (doall
+      (map (comp println f)
+           lines))))
 
 (defn -main
   [& args]
